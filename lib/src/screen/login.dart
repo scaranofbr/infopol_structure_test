@@ -77,7 +77,9 @@ class _LoginState extends State<Login> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => MenuList(
-                                  loginResult.token, response.headers['set-cookie'] ?? "", loginResult.menu)));
+                                  loginResult.token,
+                                  response.headers['set-cookie'] ?? "",
+                                  loginResult.menu)));
                     }
                   }
                 },

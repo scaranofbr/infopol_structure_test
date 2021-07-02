@@ -9,6 +9,7 @@ import 'package:infopol_structure_test/src/model/article/tv_article.dart';
 import 'package:infopol_structure_test/src/model/article/video_article.dart';
 import 'package:infopol_structure_test/src/model/login_response.dart';
 import 'package:http/http.dart' as http;
+import 'package:infopol_structure_test/src/screen/detail.dart';
 
 class Tabs extends StatefulWidget {
   final String title;
@@ -37,6 +38,7 @@ class _TabsState extends State<Tabs> {
         appBar: AppBar(
           title: Text(widget.title),
           bottom: TabBar(
+            isScrollable: true,
             tabs: widget.items.map((item) => Text(item.key)).toList(),
           ),
         ),
@@ -58,8 +60,16 @@ class _TabsState extends State<Tabs> {
                         return ListView.separated(
                             itemBuilder: (context, index) {
                               return ListTile(
-                                  title: Text(data[index].title),
-                                  subtitle: Text(data[index].prev));
+                                title: Text(data[index].title),
+                                subtitle: Text(data[index].prev),
+                                onTap: () {
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) {
+                                    return Detail(
+                                        article: data[index]);
+                                  }));
+                                },
+                              );
                             },
                             separatorBuilder: (context, _) {
                               return Divider();
