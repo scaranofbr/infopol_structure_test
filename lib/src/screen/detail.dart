@@ -5,6 +5,7 @@ import 'package:infopol_structure_test/src/model/article/newsstand_article.dart'
 import 'package:infopol_structure_test/src/model/article/text_article.dart';
 import 'package:infopol_structure_test/src/model/article/tv_article.dart';
 import 'package:infopol_structure_test/src/model/article/video_article.dart';
+import 'package:infopol_structure_test/src/widget/detail/link_detail.dart';
 import 'package:infopol_structure_test/src/widget/detail/text_detail.dart';
 import 'package:infopol_structure_test/src/widget/detail/video_detail.dart';
 
@@ -25,18 +26,21 @@ class Detail extends StatelessWidget {
   Widget _detailForArticle(Article article) {
     switch (article.runtimeType) {
       case TextArticle:
-        return TextDetail(model: article as TextArticle);
+        var model = article as TextArticle;
+        return TextDetail(
+            title: model.title,
+            date: model.data,
+            time: model.ora,
+            content: model.content);
       case VideoArticle:
-        return VideoDetail(model: article as VideoArticle);
+        var videoArticle = article as VideoArticle;
+        return VideoDetail(link: videoArticle.video5, title: videoArticle.title, date: videoArticle.data, time: videoArticle.ora);
       case TvArticle:
-        print('tv');
-        break;
+        var tvArticle = article as TvArticle;
+        return VideoDetail(link: tvArticle.content, title: tvArticle.title, date: tvArticle.data, time: tvArticle.ora);
       case JournalArticle:
-        print('journal');
-        break;
       case NewsstandArticle:
-        print('news');
-        break;
+        return LinkDetail(title: article.title, date: article.data, time: article.ora, link: article.link);
     }
     return Container();
   }

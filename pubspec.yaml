@@ -30,8 +30,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   http: ^0.13.3
   intl: ^0.17.0
-  chewie: ^1.2.2
+  better_player: ^0.0.70
   video_player: ^2.1.6
+  url_launcher: ^6.0.9
 
 dev_dependencies:
   flutter_test:

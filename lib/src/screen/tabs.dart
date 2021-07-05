@@ -10,6 +10,7 @@ import 'package:infopol_structure_test/src/model/article/video_article.dart';
 import 'package:infopol_structure_test/src/model/login_response.dart';
 import 'package:http/http.dart' as http;
 import 'package:infopol_structure_test/src/screen/detail.dart';
+import 'package:infopol_structure_test/src/widget/detail/link_detail.dart';
 
 class Tabs extends StatefulWidget {
   final String title;
@@ -44,6 +45,9 @@ class _TabsState extends State<Tabs> {
         ),
         body: TabBarView(
           children: widget.items.map((item) {
+            if (item.type == 'url') {
+              return LinkDetail(title: '', time: '', link: item.val);
+            }
             return FutureBuilder<List<Article>>(
                 future: _getArticles(item.val),
                 builder: (context, snapshot) {
@@ -65,8 +69,7 @@ class _TabsState extends State<Tabs> {
                                 onTap: () {
                                   Navigator.push(context,
                                       MaterialPageRoute(builder: (context) {
-                                    return Detail(
-                                        article: data[index]);
+                                    return Detail(article: data[index]);
                                   }));
                                 },
                               );
