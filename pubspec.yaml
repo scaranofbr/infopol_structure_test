@@ -33,6 +33,9 @@ dependencies:
   better_player: ^0.0.70
   video_player: ^2.1.6
   url_launcher: ^6.0.9
+  rxdart: ^0.27.1
+  flutter_secure_storage: ^4.2.0
+  local_auth: ^1.1.6
 
 dev_dependencies:
   flutter_test:
