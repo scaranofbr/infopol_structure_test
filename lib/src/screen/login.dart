@@ -143,30 +143,20 @@ class _LoginState extends State<Login> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            StreamBuilder<String>(
-                initialData: '',
-                stream: _accountStream.stream,
-                builder: (context, snapshot) {
-                  return TextFormField(
+            TextFormField(
                     controller: _accountController,
                     decoration: InputDecoration(
                         border: OutlineInputBorder(), labelText: 'Account'),
                     onChanged: _accountStream.add,
-                  );
-                }),
+                  ),
             SizedBox(height: 20),
-            StreamBuilder<String>(
-                initialData: '',
-                stream: _passwordStream.stream,
-                builder: (context, snapshot) {
-                  return TextFormField(
+            TextFormField(
                     controller: _passwordController,
                     obscureText: true,
                     decoration: InputDecoration(
                         border: OutlineInputBorder(), labelText: 'Password'),
                     onChanged: _passwordStream.add,
-                  );
-                }),
+                  ),
             Align(
               alignment: Alignment.centerRight,
               child: StreamBuilder<ButtonStatus>(
