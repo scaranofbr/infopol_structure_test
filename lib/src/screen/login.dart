@@ -5,9 +5,12 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:infopol_structure_test/src/model/login_response.dart';
 import 'package:infopol_structure_test/src/screen/menu_list.dart';
+import 'package:infopol_structure_test/src/screen/onboarding.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 enum ButtonStatus { empty, full, loading }
 
@@ -66,7 +69,7 @@ class _LoginState extends State<Login> {
       if (response.statusCode != 200) return;
       var loginResult = LoginResponse.fromJson(jsonStr);
       if (loginResult.code != '000') return;
-      _navigateToMenu(loginResult.token, response.headers['set-cookie'] ?? "",
+      _navigateToOnboarding(loginResult.token, response.headers['set-cookie'] ?? "",
           loginResult.menu);
     }
   }
@@ -129,15 +132,16 @@ class _LoginState extends State<Login> {
     return ButtonStatus.empty;
   }
 
-  _navigateToMenu(String token, String cookie, List<Menu> menu) {
+  _navigateToOnboarding(String token, String cookie, List<Menu> menu) {
+    
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => MenuList(token, cookie, menu)));
+        MaterialPageRoute(builder: (context) => OnBoarding(token, cookie, menu)));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('InfoPOL Login')),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.loginTitle)),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30),
         child: Column(
@@ -171,7 +175,7 @@ class _LoginState extends State<Login> {
                     if (snapshot.data == ButtonStatus.loading)
                       return CircularProgressIndicator();
                     return ElevatedButton(
-                      child: Text('ACCEDI'),
+                      child: Text(AppLocalizations.of(context)!.loginButtonText),
                       onPressed: snapshot.data == ButtonStatus.empty
                           ? null
                           : () async {
@@ -203,7 +207,7 @@ class _LoginState extends State<Login> {
                                                       value: _passwordController
                                                           .text);
                                                   Navigator.pop(context);
-                                                  _navigateToMenu(
+                                                  _navigateToOnboarding(
                                                       loginResult.token,
                                                       response.headers[
                                                               'set-cookie'] ??
@@ -218,7 +222,7 @@ class _LoginState extends State<Login> {
                                                   storage.delete(
                                                       key: 'password');
                                                   Navigator.pop(context);
-                                                  _navigateToMenu(
+                                                  _navigateToOnboarding(
                                                       loginResult.token,
                                                       response.headers[
                                                               'set-cookie'] ??
